@@ -32,8 +32,10 @@ public class CompraReserva implements Serializable {
     @Column(nullable = false)
     private LocalDate fecha;
 
-    @NotNull
-    @ManyToOne
-    private Empleado empleado;
-
+    public CompraReserva( Habitacion habitacion, ReservaHotel reservaHotel, LocalDate fecha) {
+        this.habitacion = habitacion;
+        this.reservaHotel = reservaHotel;
+        this.fecha = fecha;
+    }
+    
 }

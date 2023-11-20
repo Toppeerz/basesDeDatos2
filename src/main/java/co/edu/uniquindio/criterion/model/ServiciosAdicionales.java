@@ -4,14 +4,11 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
+
 
 @Getter
 @Setter
@@ -40,9 +37,9 @@ public class ServiciosAdicionales implements Serializable {
 
     @ManyToMany
     @JoinTable(
-            name = "SERVICIOS_RESERVAS_AUTOS",  // Nombre personalizado para la tabla intermedia
-            joinColumns = @JoinColumn(name = "SERVICIO_ID"),  // Nombre personalizado para la columna que referencia a Estudiante
-            inverseJoinColumns = @JoinColumn(name = "COMPRA_RESERVA_AUTO_ID")  // Nombre personalizado para la columna que referencia a Curso
+            name = "SERVICIOS_RESERVAS_AUTOS",  
+            joinColumns = @JoinColumn(name = "SERVICIO_ID"),  
+            inverseJoinColumns = @JoinColumn(name = "COMPRA_RESERVA_AUTO_ID")  
     )
     private List<CompraReservaAutomovil> compraReservaAutomoviles = new ArrayList<>();
 

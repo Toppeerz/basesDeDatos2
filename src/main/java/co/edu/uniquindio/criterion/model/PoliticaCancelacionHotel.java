@@ -1,18 +1,14 @@
 package co.edu.uniquindio.criterion.model;
 
 import lombok.*;
-import org.springframework.security.core.parameters.P;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -41,10 +37,12 @@ public class PoliticaCancelacionHotel implements Serializable {
 
     @ManyToMany
     @JoinTable(
-            name = "CANCELACIONES_HOTELES",  // Nombre personalizado para la tabla intermedia
-            joinColumns = @JoinColumn(name = "POLITICA_CANCELACION_HOTEL_ID"),  // Nombre personalizado para la columna que referencia a Estudiante
-            inverseJoinColumns = @JoinColumn(name = "HOTEL_ID")  // Nombre personalizado para la columna que referencia a Curso
+            name = "CANCELACIONES_HOTELES",  
+            joinColumns = @JoinColumn(name = "POLITICA_CANCELACION_HOTEL_ID"),  
+            inverseJoinColumns = @JoinColumn(name = "HOTEL_ID") 
     )
     private List<Hotel> hoteles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "politicaCancelacionHotel")
+    private List<CancelacionReserva> cancelacionReservas = new ArrayList<>();
 }

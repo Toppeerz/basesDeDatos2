@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="620.0" prefWidth="820.0" style="-fx-background-color: #e7db86;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuPaquete.TuControlador">
+    <children>
+        <Label layoutX="193.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Reserva" AnchorPane.leftAnchor="193.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="Open Sans Semibold" size="34.0" />
+         </font></Label>
+        <VBox layoutX="23.0" layoutY="49.0" spacing="10">
+            <children>
+                <Label text="ID Cliente" />
+                <TextField fx:id="idClienteInput" prefHeight="25.0" prefWidth="221.0" />
+
+                <Label text="ID Hotel" />
+                <TextField fx:id="idHotelInput" prefHeight="25.0" prefWidth="254.0" />
+
+                <HBox spacing="10">
+   <children>
+                       <VBox spacing="5">
+                          <children>
+                              <Label text="Fecha Check-In" />
+                              <DatePicker fx:id="fechaCheckInPicker" />
+                          </children>
+                       </VBox>
+   
+                       <VBox spacing="5">
+      <children>
+                              <Label text="Fecha Check-Out" />
+                              <DatePicker fx:id="fechaCheckOutPicker" />
+      </children>
+                       </VBox>
+   </children>
+                </HBox>
+
+                <!-- Otros elementos de la reserva -->
+                <ComboBox fx:id="metodoPagoComboBox" promptText="Método de pago">
+                    <!-- Opciones para el método de pago -->
+                </ComboBox>
+
+                <TextArea fx:id="descripcionTextArea" />
+                <Label layoutX="10.0" layoutY="409.0" text="Habitación Seleccionada:" />
+
+                <Label fx:id="NumeroHabitacionlabel" text="# habitación" />
+                <Label fx:id="costoMoraLabel" />
+
+                <HBox spacing="10">
+   <children>
+                       <Button onAction="#crearReserva" text="Crear" />
+                       <Button onAction="#actualizarReserva" text="Actualizar" />
+                       <Button onAction="#eliminarReserva" text="Eliminar" />
+                       <Button fx:id="buscarButton" onAction="#crearReserva" text="Buscar" />
+                       <Button onAction="#abrirVistaFiltrarHoteles" text="Buscar Hotel" />
+   </children>
+                </HBox>
+
+                <Label fx:id="habitacionSeleccionadaLabel" />
+            </children>
+        </VBox>
+
+        <!-- Tabla para mostrar las reservas existentes -->
+        <TableView fx:id="reservasTableView" layoutX="508.0" layoutY="63.0" prefHeight="500.0" prefWidth="511.0">
+            <columns>
+                <TableColumn text="ID" />
+                <TableColumn text="ID Cliente" />
+                <TableColumn text="ID Hotel" />
+                <TableColumn prefWidth="123.0" text="Fecha Check-In" />
+                <TableColumn prefWidth="142.0" text="Fecha Reserva" />
+                <!-- ... Agregar más columnas según tu estructura de reservas ... -->
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

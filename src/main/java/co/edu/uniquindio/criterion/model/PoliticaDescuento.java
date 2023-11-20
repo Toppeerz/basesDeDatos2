@@ -1,16 +1,15 @@
 package co.edu.uniquindio.criterion.model;
 
 import lombok.*;
-import org.springframework.security.core.parameters.P;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
+
 
 @Getter
 @Setter
@@ -35,7 +34,7 @@ public class PoliticaDescuento implements Serializable {
 
     @NotNull
     @PositiveOrZero
-    private Long porcentajeDescuento;
+    private Double porcentajeDescuento;
 
     @OneToMany(mappedBy = "politicaDescuento")
     private List<Paquete> paquetes = new ArrayList<>();

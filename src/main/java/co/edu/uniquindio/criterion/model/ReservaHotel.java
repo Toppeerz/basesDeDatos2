@@ -10,9 +10,8 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
+
 
 
 @Getter
@@ -75,4 +74,23 @@ public class ReservaHotel implements Serializable {
     @OneToMany(mappedBy = "reservaHotel")
     private List<CompraReserva> compraReservas = new ArrayList<>();
 
+    @ManyToOne
+    @NotNull
+    private RegimenHotel regimenHotel;
+
+    //Dame constructor con todos los atributos excepto listas e id
+    public ReservaHotel(Cliente cliente, Hotel hotel, LocalDate checkin, Double costoMora, LocalDate fechaReserva, LocalDate checkout, String estado, Double costoTotal, MetodoPago metodoPago, String descripcion, RegimenHotel regimenHotel) {
+        this.cliente = cliente;
+        this.hotel = hotel;
+        this.checkin = checkin;
+        this.costoMora = costoMora;
+        this.fechaReserva = fechaReserva;
+        this.checkout = checkout;
+        this.estado = estado;
+        this.costoTotal = costoTotal;
+        this.metodoPago = metodoPago;
+        this.descripcion = descripcion;
+        this.regimenHotel = regimenHotel;
+    }
+    
 }

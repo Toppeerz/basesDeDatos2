@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Getter
@@ -40,6 +39,15 @@ public class DetalleCompraPaquete implements Serializable {
 
     @PositiveOrZero
     @Column(nullable = false)
-    private Long descuento;
+    private Double descuento;
+
+    //Constructor con atributos necesarios ignorando id y listas
+    public DetalleCompraPaquete(CompraPaquete compraPaquete, Long cantidad, String estado, Double total, Double descuento) {
+        this.compraPaquete = compraPaquete;
+        this.cantidad = cantidad;
+        this.estado = estado;
+        this.total = total;
+        this.descuento = descuento;
+    }
 
 }

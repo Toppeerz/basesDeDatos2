@@ -43,9 +43,6 @@ public class CompraArticulo implements Serializable {
     @Column(nullable = false)
     private LocalDate fecha;
 
-    @NotNull
-    @ManyToOne
-    private Empleado empleado;
 
     @OneToMany(mappedBy = "compraArticulo")
     private List<DetalleCompraArticulo> detallesComprasArticulos = new ArrayList<>();

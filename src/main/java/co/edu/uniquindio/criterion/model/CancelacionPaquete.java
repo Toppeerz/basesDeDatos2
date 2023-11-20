@@ -38,4 +38,9 @@ public class CancelacionPaquete implements Serializable {
     @NotEmpty(message = "Debe ingresar el motivo de la cancelacion")
     private String motivo;
 
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = "POLITICA_ID", nullable = false)
+    private PoliticaCancelacion politicaCancelacion;
+
 }

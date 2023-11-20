@@ -7,9 +7,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
+
 
 @Getter
 @Setter
@@ -43,4 +42,6 @@ public class PoliticaCancelacion implements Serializable {
     @OneToMany(mappedBy = "politicaCancelacion")
     private List<Paquete> paquetes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "politicaCancelacion")
+    private List<CancelacionPaquete> cancelacionPaquetes = new ArrayList<>();
 }

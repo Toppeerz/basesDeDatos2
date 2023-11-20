@@ -27,9 +27,6 @@ public class CompraReservaAutomovil implements Serializable {
     @ManyToOne
     private Cliente cliente;
 
-    @NotNull
-    @ManyToOne
-    private Empleado empleado;
 
     @NotNull
     @Column(nullable = false)

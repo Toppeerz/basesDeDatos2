@@ -39,4 +39,18 @@ public class CancelacionReserva implements Serializable {
     @NotNull
     private ReservaHotel reservaHotel;
 
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = "POLITICA_ID", nullable = false)
+    private PoliticaCancelacionHotel politicaCancelacionHotel;
+
+    //Constructor de atributos no lista ni id
+    public CancelacionReserva(LocalDate fechaCancelacion, Double costo, String motivo, ReservaHotel reservaHotel, PoliticaCancelacionHotel politicaCancelacionHotel) {
+        this.fechaCancelacion = fechaCancelacion;
+        this.costo = costo;
+        this.motivo = motivo;
+        this.reservaHotel = reservaHotel;
+        this.politicaCancelacionHotel = politicaCancelacionHotel;
+    }
+
 }

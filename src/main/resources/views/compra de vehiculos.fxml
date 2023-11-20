@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #F0E68C;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <!-- Título de la vista -->
+       <Label layoutX="300.0" layoutY="20.0" text="Compra de Artículos">
+           <font>
+               <Font name="Arial Italic" size="24.0" />
+           </font>
+       </Label>
+   
+       <!-- Campos para ingresar información del cliente -->
+       <Label layoutX="50.0" layoutY="80.0" text="Nombre del Cliente:" />
+       <TextField layoutX="200.0" layoutY="80.0" />
+   
+       <Label layoutX="50.0" layoutY="120.0" text="Fecha:" />
+       <TextField layoutX="200.0" layoutY="120.0" />
+   
+       <Label layoutX="50.0" layoutY="160.0" text="Método de Pago:" />
+       <TextField layoutX="200.0" layoutY="160.0" />
+   
+       <Label layoutX="380.0" layoutY="80.0" text="Descripción:" />
+       <TextField layoutX="450.0" layoutY="84.0" prefHeight="106.0" prefWidth="300.0" />
+   
+       <!-- Botones para operaciones -->
+       <Button layoutX="50.0" layoutY="250.0" text="Realizar Compra" />
+       <Button layoutX="200.0" layoutY="250.0" text="Buscar" />
+       <Button layoutX="350.0" layoutY="250.0" text="Eliminar" />
+   
+       <!-- Tabla para ver artículos disponibles -->
+       <TableView layoutX="51.0" layoutY="290.0" prefHeight="200.0" prefWidth="700.0">
+           <columns>
+               <TableColumn prefWidth="150.0" text="Nombre del Artículo" />
+               <TableColumn prefWidth="100.0" text="Tipo" />
+               <TableColumn prefWidth="100.0" text="ID" />
+               <TableColumn prefWidth="200.0" text="Descripción" />
+               <TableColumn prefWidth="100.0" text="Precio" />
+           </columns>
+       </TableView>
+   
+       <!-- Tabla para ver compras realizadas -->
+       <TableView layoutX="76.0" layoutY="498.0" prefHeight="200.0" prefWidth="651.0">
+           <columns>
+               <TableColumn prefWidth="150.0" text="Código de Venta" />
+               <TableColumn prefWidth="150.0" text="Cliente" />
+               <TableColumn prefWidth="150.0" text="Código de Artículo" />
+               <TableColumn prefWidth="100.0" text="Fecha" />
+               <TableColumn prefWidth="100.0" text="Total" />
+           </columns>
+       </TableView>
+   </children>
+</AnchorPane>

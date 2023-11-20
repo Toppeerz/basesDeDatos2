@@ -3,13 +3,10 @@ package co.edu.uniquindio.criterion.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -35,6 +32,7 @@ public class Persona implements Serializable {
 
     @NotEmpty(message = "Debe ingresar el correo de la persona")
     @Column(nullable = false, length = 60)
+    @Email(message = "Debe ingresar un correo valido")
     private String correo;
 
     @NotEmpty(message = "Debe ingresar el telefono de la persona")

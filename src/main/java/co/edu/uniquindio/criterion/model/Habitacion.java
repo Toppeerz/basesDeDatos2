@@ -37,7 +37,7 @@ public class Habitacion implements Serializable {
 
     @NotNull
     @PositiveOrZero
-    private Long precio;
+    private Double precio;
 
     @NotNull
     @ManyToOne

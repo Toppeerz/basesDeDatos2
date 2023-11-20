@@ -31,9 +31,6 @@ public class CompraPaquete implements Serializable {
     @ManyToOne
     private Cliente cliente;
 
-    @NotNull
-    @ManyToOne
-    private Empleado empleado;
 
     @NotNull
     @ManyToOne
@@ -52,4 +49,12 @@ public class CompraPaquete implements Serializable {
     @OneToMany(mappedBy = "compraPaquete")
     private List<DetalleCompraPaquete> detallesComprasPaquetes = new ArrayList<>();
 
+    //Constructor con los atributos de la clase ignorando id y listas
+    public CompraPaquete(Paquete paquete, Cliente cliente, MetodoPago metodoPago, LocalDate fecha, String descripcion) {
+        this.paquete = paquete;
+        this.cliente = cliente;
+        this.metodoPago = metodoPago;
+        this.fecha = fecha;
+        this.descripcion = descripcion;
+    }
 }

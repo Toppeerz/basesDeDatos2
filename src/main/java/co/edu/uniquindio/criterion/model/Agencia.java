@@ -3,15 +3,12 @@ package co.edu.uniquindio.criterion.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+
+
 
 @Getter
 @Setter
@@ -44,7 +41,5 @@ public class Agencia implements Serializable {
     @Column(nullable = false, length = 15)
     private String telefono;
 
-    @OneToMany(mappedBy = "agencia", cascade = CascadeType.REMOVE)
-    private List<Empleado> empleados = new ArrayList<>();
 
 }

@@ -51,12 +51,10 @@ public class Paquete implements Serializable {
 
     @NotNull
     @ManyToOne
-    @JoinTable(name = "CANCELACION_ID")
     private PoliticaCancelacion politicaCancelacion;
 
     @NotNull
     @ManyToOne
-    @JoinTable(name = "DESCUENTO_ID")
     private PoliticaDescuento politicaDescuento;
 
     @OneToMany(mappedBy = "paquete")

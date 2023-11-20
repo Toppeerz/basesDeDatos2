@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="713.0" prefWidth="1090.0" style="-fx-background-color: #aea8f8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <!-- Título de la vista -->
+       <Label layoutX="470.0" layoutY="24.0" text="Reserva de Automóviles">
+           <font>
+               <Font name="Arial Italic" size="24.0" />
+           </font>
+       </Label>
+   
+       <!-- Campos para ingresar información del cliente -->
+       <Label layoutX="50.0" layoutY="80.0" text="Nombre del Cliente:" />
+       <TextField layoutX="200.0" layoutY="80.0" />
+   
+       <Label layoutX="50.0" layoutY="120.0" text="Fecha:" />
+       <TextField layoutX="200.0" layoutY="120.0" />
+   
+       <Label layoutX="50.0" layoutY="160.0" text="Método de Pago:" />
+       <TextField layoutX="200.0" layoutY="160.0" />
+   
+       <Label layoutX="380.0" layoutY="80.0" text="Descripción:" />
+       <TextField layoutX="450.0" layoutY="84.0" prefHeight="106.0" prefWidth="300.0" />
+   
+       <!-- Botones para operaciones -->
+       <Button layoutX="142.0" layoutY="226.0" text="Crear Reserva" />
+       <Button layoutX="742.0" layoutY="484.0" text="Buscar Reserva" />
+       <Button layoutX="742.0" layoutY="429.0" text="Actualizar Reserva" />
+       <Button layoutX="445.0" layoutY="226.0" text="Eliminar Reserva" />
+   
+       <!-- Tabla para ver vehículos disponibles -->
+       <TableView layoutX="20.0" layoutY="278.0" prefHeight="200.0" prefWidth="700.0">
+           <columns>
+               <TableColumn prefWidth="143.0" text="Nombre del Carro" />
+               <TableColumn prefWidth="129.0" text="Tipo" />
+               <TableColumn prefWidth="104.0" text="Gama" />
+               <TableColumn prefWidth="140.0" text="Marca" />
+               <TableColumn prefWidth="183.0" text="Cantidad de Personas" />
+           </columns>
+       </TableView>
+   
+       <!-- Tabla para ver reservas realizadas -->
+       <TableView layoutX="20.0" layoutY="484.0" prefHeight="200.0" prefWidth="700.0">
+           <columns>
+               <TableColumn prefWidth="129.0" text="Código de Alquiler" />
+               <TableColumn prefWidth="129.0" text="Ciudad de Recepción" />
+               <TableColumn prefWidth="122.0" text="Ciudad de Origen" />
+               <TableColumn minWidth="5.0" prefWidth="72.0" text="Precio" />
+               <TableColumn prefWidth="116.0" text="ID del Vehículo" />
+               <TableColumn prefWidth="131.0" text="Cliente" />
+           </columns>
+       </TableView>
+
+       <Label layoutX="759.0" layoutY="233.0" text="Código de Alquiler:" />
+       <TextField layoutX="911.0" layoutY="238.0" />
+
+       <Label layoutX="759.0" layoutY="263.0" text="Nueva Ciudad de Recepción:" />
+       <TextField layoutX="911.0" layoutY="266.0" />
+
+       <Label layoutX="759.0" layoutY="293.0" text="Nueva Ciudad de Origen:" />
+       <TextField layoutX="909.0" layoutY="293.0" />
+
+       <Label layoutX="759.0" layoutY="323.0" text="Nuevo Precio:" />
+       <TextField layoutX="909.0" layoutY="323.0" />
+
+       <Label layoutX="759.0" layoutY="353.0" text="Nuevo ID del Vehículo:" />
+       <TextField layoutX="909.0" layoutY="353.0" />
+
+       <Label layoutX="759.0" layoutY="383.0" text="Nuevo Cliente:" />
+       <TextField layoutX="909.0" layoutY="383.0" />
+
+   </children>
+</AnchorPane>

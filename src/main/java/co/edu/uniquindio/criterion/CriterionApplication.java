@@ -7,6 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -22,7 +23,7 @@ public class CriterionApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 	try {
-		//primaryStage.getIcons().add(new Image(CriterionApplication.class.getResourceAsStream("views/images/logo.png")));
+		primaryStage.getIcons().add(new Image(CriterionApplication.class.getResourceAsStream("/views/images/logo.png")));
 		primaryStage.setTitle("Criterion");
 		FXMLLoader loader = new FXMLLoader(CriterionApplication.class.getResource("/views/Login.fxml"));
 		loader.setControllerFactory(context::getBean);
