@@ -47,4 +47,13 @@ public class CompraArticulo implements Serializable {
     @OneToMany(mappedBy = "compraArticulo")
     private List<DetalleCompraArticulo> detallesComprasArticulos = new ArrayList<>();
 
+    //Constructor sin listas ni id
+    public CompraArticulo(@PositiveOrZero @NotNull Double precioVenta, @NotNull Cliente cliente, @NotNull Articulo articulo, @NotNull MetodoPago metodoPago, @NotNull LocalDate fecha) {
+        this.precioVenta = precioVenta;
+        this.cliente = cliente;
+        this.articulo = articulo;
+        this.metodoPago = metodoPago;
+        this.fecha = fecha;
+    }
+
 }

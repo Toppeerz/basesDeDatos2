@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface MetodoPagoRepo extends JpaRepository<MetodoPago, Long> {
 
     MetodoPago findByNombre(String metodoPago);
+
+    MetodoPago findByCompraReservaAutomoviles_AlquilerVehiculo_Id(Long id);
 }

@@ -45,4 +45,13 @@ public class AlquilerVehiculo implements Serializable {
     @OneToMany(mappedBy = "alquilerVehiculo")
     private List<CompraReservaAutomovil> comprasReservasAutomoviles = new ArrayList<>();
 
+    //Constructor sin listas ni id
+    public AlquilerVehiculo(@NotNull Ciudad ciudadRecepcion, @NotNull Ciudad ciudadOrigen, LocalDate fechaReserva, LocalDate fechaEntrega, @PositiveOrZero Double precio) {
+        this.ciudadRecepcion = ciudadRecepcion;
+        this.ciudadOrigen = ciudadOrigen;
+        this.fechaReserva = fechaReserva;
+        this.fechaEntrega = fechaEntrega;
+        this.precio = precio;
+    }
+
 }

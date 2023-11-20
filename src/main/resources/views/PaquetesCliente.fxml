@@ -62,7 +62,8 @@
             <TableColumn fx:id="columnaTipoComprado" prefWidth="118.0" text="Tipo" />
             <TableColumn fx:id="columnaMetodo" prefWidth="107.0" text="Metodo de pago" />
             <TableColumn fx:id="columnaDescuentoComprado" prefWidth="111.0" text="Descuento" />
-            <TableColumn fx:id="columnaCantidadPersonasComprado" prefWidth="155.0" text="Cantidad de personas" />
+            <TableColumn fx:id="columnaCantidadPersonasComprado" prefWidth="69.0" text="Cantidad de personas" />
+            <TableColumn fx:id="columnaEstado" prefWidth="86.0" text="Estado" />
          </columns>
       </TableView>
       <Label layoutX="36.0" layoutY="472.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Paquetes comprados">

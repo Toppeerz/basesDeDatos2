@@ -43,4 +43,12 @@ public class CancelacionPaquete implements Serializable {
     @JoinColumn(name = "POLITICA_ID", nullable = false)
     private PoliticaCancelacion politicaCancelacion;
 
+    //Constructor con atributos necesarios ignorando id y listas
+    public CancelacionPaquete(CompraPaquete compraPaquete, LocalDate fecha, Double costo, String motivo, PoliticaCancelacion politicaCancelacion) {
+        this.compraPaquete = compraPaquete;
+        this.fecha = fecha;
+        this.costo = costo;
+        this.motivo = motivo;
+        this.politicaCancelacion = politicaCancelacion;
+    }
 }

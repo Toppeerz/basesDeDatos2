@@ -54,4 +54,13 @@ public class CompraReservaAutomovil implements Serializable {
     @ManyToMany(mappedBy = "compraReservaAutomoviles")
     private List<ServiciosAdicionales> serviciosAdicionales = new ArrayList<>();
 
+    //Constructor sin listas ni id
+    public CompraReservaAutomovil(@NotNull Cliente cliente, @NotNull LocalDate fecha, @NotNull MetodoPago metodoPago, @NotEmpty(message = "Debe ingresar la descripcion de la reserva del automovil") String descripcion, @NotNull AlquilerVehiculo alquilerVehiculo, @NotNull Vehiculo vehiculo) {
+        this.cliente = cliente;
+        this.fecha = fecha;
+        this.metodoPago = metodoPago;
+        this.descripcion = descripcion;
+        this.alquilerVehiculo = alquilerVehiculo;
+        this.vehiculo = vehiculo;
+    }
 }

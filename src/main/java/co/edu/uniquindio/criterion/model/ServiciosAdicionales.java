@@ -33,7 +33,7 @@ public class ServiciosAdicionales implements Serializable {
 
     @PositiveOrZero
     @Column( nullable = false)
-    private Double precioadicional;
+    private Double precioAdicional;
 
     @ManyToMany
     @JoinTable(

@@ -39,12 +39,12 @@ public class MenuClienteController implements Initializable{
 
     @FXML
     void abrirVistaArticulos(ActionEvent event) {
-
+        sceneController.cambiarAVistaArticulos(event);
     }
 
     @FXML
     void abrirVistaAutomoviles(ActionEvent event) {
-
+        sceneController.cambiarAVistaReservasAutomoviles(event);
     }
 
     @FXML

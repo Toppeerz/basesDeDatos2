@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="879.0" prefWidth="884.0" style="-fx-background-color: #e7db86;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.criterion.controllers.ReservaAutomovilesController">
+    <children>
+        <Label layoutX="326.0" layoutY="16.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Automoviles" AnchorPane.leftAnchor="326.0" AnchorPane.topAnchor="16.0">
+         <font>
+            <Font name="Open Sans Semibold" size="34.0" />
+         </font></Label>
+
+        <!-- Tabla para mostrar las reservas existentes -->
+        <TableView fx:id="tablaAutos" layoutX="19.0" layoutY="221.0" prefHeight="187.0" prefWidth="836.0">
+            <columns>
+                <TableColumn fx:id="columnaCapacidad" prefWidth="75.0" text="Capacidad" />
+                <TableColumn fx:id="columnaEstadoAuto" prefWidth="151.0" text="Estado" />
+                <TableColumn fx:id="columnaDisponible" prefWidth="145.0" text="Disponible" />
+                <TableColumn fx:id="columnaPrecioDia" prefWidth="148.0" text="Precio por dia" />
+            <TableColumn fx:id="columnaMarca" prefWidth="163.0" text="Marca" />
+            <TableColumn fx:id="columnaTipo" minWidth="0.0" prefWidth="153.0" text="Tipo" />
+                <!-- ... Agregar más columnas según tu estructura de reservas ... -->
+            </columns>
+        </TableView>
+      <Button fx:id="btnVolver" layoutX="19.0" layoutY="16.0" onAction="#volver" text="Volver" />
+      <TextField fx:id="buscadorAuto" layoutX="142.0" layoutY="181.0" prefHeight="25.0" prefWidth="237.0" />
+      <Label layoutX="19.0" layoutY="126.0" prefHeight="55.0" prefWidth="157.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Automoviles">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <Label layoutX="19.0" layoutY="166.0" prefHeight="0.0" prefWidth="108.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Buscar:">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="86.0" prefHeight="55.0" prefWidth="102.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Paises: ">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="comboPaises" layoutX="117.0" layoutY="101.0" prefHeight="25.0" prefWidth="211.0" />
+      <Label layoutX="359.0" layoutY="86.0" prefHeight="55.0" prefWidth="130.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Ciudades:">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="comboCiudades" layoutX="501.0" layoutY="101.0" prefHeight="25.0" prefWidth="211.0" />
+      <Label layoutX="13.0" layoutY="416.0" prefHeight="55.0" prefWidth="196.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Ciudad destino:">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="comboCiudadOrigen" layoutX="207.0" layoutY="431.0" prefHeight="25.0" prefWidth="211.0" />
+      <Label layoutX="470.0" layoutY="416.0" prefHeight="55.0" prefWidth="211.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Fecha de entrega:">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="fechaEntrega" layoutX="697.0" layoutY="431.0" />
+      <Label layoutX="30.0" layoutY="589.0" prefHeight="55.0" prefWidth="123.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Reservas">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <TextField fx:id="buscadorReserva" layoutX="128.0" layoutY="651.0" prefHeight="25.0" prefWidth="237.0" />
+      <Label layoutX="30.0" layoutY="636.0" prefHeight="0.0" prefWidth="108.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Buscar:">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tablaReservas" layoutX="34.0" layoutY="691.0" prefHeight="168.0" prefWidth="836.0">
+         <columns>
+            <TableColumn fx:id="columnaId" prefWidth="64.0" text="ID" />
+            <TableColumn fx:id="columnaFechaReserva" prefWidth="133.0" text="Fecha de reserva" />
+            <TableColumn fx:id="ColumnaFechaEntrega" prefWidth="144.0" text="Fecha de entrega" />
+            <TableColumn fx:id="columnaTotal" prefWidth="114.0" text="Total" />
+            <TableColumn fx:id="columnaDescripcion" prefWidth="380.0" text="Descripcion" />
+         </columns>
+      </TableView>
+      <Button fx:id="btnReservar" layoutX="424.0" layoutY="651.0" onAction="#reservar" prefHeight="25.0" prefWidth="130.0" text="Reservar automovil" />
+      <Label layoutX="19.0" layoutY="471.0" prefHeight="55.0" prefWidth="245.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Servicios adicionales:">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tablaServicios" layoutX="264.0" layoutY="472.0" prefHeight="55.0" prefWidth="584.0">
+         <columns>
+            <TableColumn fx:id="columnaNombre" prefWidth="176.0" text="Nombre" />
+            <TableColumn fx:id="columnaDescripcionServicio" prefWidth="287.0" text="Descripcion" />
+            <TableColumn fx:id="columnaPrecioServicio" prefWidth="120.0" text="Precio" />
+         </columns>
+      </TableView>
+      <Label layoutX="20.0" layoutY="534.0" prefHeight="55.0" prefWidth="211.0" style="-fx-font-size: 24; -fx-text-fill: black; -fx-background-color: #e7db86; -fx-padding: 10;" text="Metodo de pago:">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="comboMetodo" layoutX="231.0" layoutY="549.0" prefHeight="25.0" prefWidth="211.0" />
+    </children>
+</AnchorPane>

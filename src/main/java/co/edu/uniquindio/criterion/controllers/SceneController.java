@@ -136,4 +136,36 @@ public class SceneController {
         }
     }
 
+
+    public void cambiarAVistaReservasAutomoviles(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(CriterionApplication.class.getResource("/views/ReservaAutomoviles.fxml"));
+            loader.setControllerFactory(CriterionApplication.context::getBean);
+            Parent root = (Parent) loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+
+    public void cambiarAVistaArticulos(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(CriterionApplication.class.getResource("/views/Articulos.fxml"));
+            loader.setControllerFactory(CriterionApplication.context::getBean);
+            Parent root = (Parent) loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+
 }

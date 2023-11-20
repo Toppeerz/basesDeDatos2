@@ -29,6 +29,7 @@ import co.edu.uniquindio.criterion.model.RegimenHospedaje;
 import co.edu.uniquindio.criterion.model.ReservaHotel;
 import co.edu.uniquindio.criterion.repositories.CancelacionReservaRepo;
 import co.edu.uniquindio.criterion.repositories.CiudadRepo;
+import co.edu.uniquindio.criterion.repositories.ClienteRepo;
 import co.edu.uniquindio.criterion.repositories.CompraReservaRepo;
 import co.edu.uniquindio.criterion.repositories.HabitacionRepo;
 import co.edu.uniquindio.criterion.repositories.HotelRepo;
@@ -95,6 +96,8 @@ public class ReservaClienteController implements Initializable {
     private PoliticaCancelacionHotelRepo politicaCancelacionHotelRepo;
     @Autowired
     private CancelacionReservaRepo cancelacionReservaRepo;
+    @Autowired
+    private ClienteRepo clienteRepo;
 
     @FXML
     private TableColumn<ReservaHotel, LocalDate> ColumnaFechaFin;
@@ -149,6 +152,10 @@ public class ReservaClienteController implements Initializable {
 
     @FXML
     private TableColumn<ReservaHotel, String> columnaMetodoPago;
+
+    
+    @FXML
+    private TableColumn<Habitacion, String> columnaEstadoHabitacion;
 
     @FXML
     private TableColumn<Habitacion, String> columnaNivel;
@@ -219,8 +226,16 @@ public class ReservaClienteController implements Initializable {
             mostrarMensaje(VALIDACION_DATOS, VALIDACION_DATOS, informacionVerificada, AlertType.WARNING);
             return;
         }
+         for (Habitacion habitacion : tablaHabitaciones.getSelectionModel().getSelectedItems()) {
+            Cliente clienteDuenio = clienteRepo.findByReservaHoteles_CompraReservas_Habitacion_Id(habitacion.getId());
+            if (habitacion.getEstado().equalsIgnoreCase("No disponible") && !clienteLogueado.getCedula().equalsIgnoreCase(clienteDuenio.getCedula())) {
+                mostrarMensaje(VALIDACION_DATOS, VALIDACION_DATOS,
+                        "La habitacion " + habitacion.getDescripcion() + " no esta disponible", AlertType.WARNING);
+                return;
+            }
+        }
         try {
-            Double total = 0.0;
+            Double total = regimenHotelRepo.findByHotel_IdAndRegimen_NombreTipo(hotelSeleccionado.getId(), regimen).getPrecio();
             double dias = fechaInicio.getValue().until(fechaFin.getValue(), ChronoUnit.DAYS);
             for (Habitacion habitacion : tablaHabitaciones.getSelectionModel().getSelectedItems()) {
                 total += habitacion.getPrecio() * dias;
@@ -305,6 +320,11 @@ public class ReservaClienteController implements Initializable {
                 reservaSeleccionada.setEstado("Cancelada");
                 reservaSeleccionada.setCostoMora(costo);
                 reservaHotelRepo.save(reservaSeleccionada);
+                for (Habitacion habitacion : habitacionRepo
+                        .findAllByCompraReservas_ReservaHotel_Id(reservaSeleccionada.getId())) {
+                    habitacion.setEstado("Disponible");
+                    habitacionRepo.save(habitacion);
+                }
                 refrescarTablaReservas();
                 reservaSeleccionada = null;
                 mostrarMensaje(VALIDACION_DATOS, VALIDACION_DATOS,
@@ -339,8 +359,15 @@ public class ReservaClienteController implements Initializable {
             mostrarMensaje(VALIDACION_DATOS, VALIDACION_DATOS, informacionVerificada, AlertType.WARNING);
             return;
         }
+        for (Habitacion habitacion : tablaHabitaciones.getSelectionModel().getSelectedItems()) {
+            if (habitacion.getEstado().equalsIgnoreCase("No disponible")) {
+                mostrarMensaje(VALIDACION_DATOS, VALIDACION_DATOS,
+                        "La habitacion " + habitacion.getDescripcion() + " no esta disponible", AlertType.WARNING);
+                return;
+            }
+        }
         try {
-            Double total = 0.0;
+            Double total = regimenHotelRepo.findByHotel_IdAndRegimen_NombreTipo(hotelSeleccionado.getId(), regimen).getPrecio();
             double dias = fechaInicio.getValue().until(fechaFin.getValue(), ChronoUnit.DAYS);
             for (Habitacion habitacion : tablaHabitaciones.getSelectionModel().getSelectedItems()) {
                 total += habitacion.getPrecio() * dias;
@@ -422,6 +449,9 @@ public class ReservaClienteController implements Initializable {
         }
         if (Math.abs(ChronoUnit.DAYS.between(LocalDate.now(), fechaInicio.getValue())) > 470) {
             mensaje += "La fecha de inicio de la reserva no puede ser mayor a 470 dias de la fecha actual\n";
+        }
+        if(fechaInicio.getValue().until(LocalDate.now(), ChronoUnit.DAYS) < 0){
+            mensaje += "La fecha de inicio de la reserva no puede ser menor a la fecha actual\n";
         }
         if (mensaje.equalsIgnoreCase("")) {
             mensaje = "OK";
@@ -583,6 +613,7 @@ public class ReservaClienteController implements Initializable {
                 .setCellValueFactory(a -> new SimpleStringProperty(a.getValue().getTipoHabitacion().getTipo()));
         this.columnaPrecioNoche.setCellValueFactory(new PropertyValueFactory<>("precio"));
         this.columnaDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        this.columnaEstadoHabitacion.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
         refrescarTablaHabitaciones();
 
@@ -601,6 +632,8 @@ public class ReservaClienteController implements Initializable {
                     } else if (habitacion.getNivel().getNombre().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     } else if (habitacion.getTipoHabitacion().getTipo().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if(habitacion.getEstado().toLowerCase().contains(lowerCaseFilter)){
                         return true;
                     } else {
                         return habitacion.getPrecio().toString().contains(lowerCaseFilter);

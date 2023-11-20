@@ -2,22 +2,28 @@ package co.edu.uniquindio.criterion.controllers;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import co.edu.uniquindio.criterion.model.CancelacionPaquete;
 import co.edu.uniquindio.criterion.model.Cliente;
 import co.edu.uniquindio.criterion.model.CompraPaquete;
 import co.edu.uniquindio.criterion.model.DetalleCompraPaquete;
 import co.edu.uniquindio.criterion.model.MetodoPago;
 import co.edu.uniquindio.criterion.model.Paquete;
+import co.edu.uniquindio.criterion.model.PoliticaCancelacion;
+import co.edu.uniquindio.criterion.repositories.CancelacionPaqueteRepo;
 import co.edu.uniquindio.criterion.repositories.CompraPaqueteRepo;
 import co.edu.uniquindio.criterion.repositories.DetalleCompraPaqueteRepo;
 import co.edu.uniquindio.criterion.repositories.MetodoPagoRepo;
 import co.edu.uniquindio.criterion.repositories.PaqueteRepo;
+import co.edu.uniquindio.criterion.repositories.PoliticaCancelacionRepo;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +39,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 @Component
@@ -55,6 +62,10 @@ public class PaquetesClienteController implements Initializable {
     private CompraPaqueteRepo compraPaqueteRepo;
     @Autowired
     private DetalleCompraPaqueteRepo detalleCompraPaqueteRepo;
+    @Autowired
+    private PoliticaCancelacionRepo politicaCancelacionRepo;
+    @Autowired
+    private CancelacionPaqueteRepo cancelacionPaqueteRepo;
     
 
     @FXML
@@ -124,6 +135,9 @@ public class PaquetesClienteController implements Initializable {
     private TableView<Paquete> tablaPaquete;
 
     @FXML
+    private TableColumn<DetalleCompraPaquete, String> columnaEstado;
+
+    @FXML
     private TableView<DetalleCompraPaquete> tablaPaquetesComprados;
 
     @FXML
@@ -131,7 +145,51 @@ public class PaquetesClienteController implements Initializable {
 
     @FXML
     void cancelar(ActionEvent event) {
-        
+        cancelar();
+    }
+
+    private void cancelar() {
+         if (detalleCompraPaqueteSeleccionado != null) {
+            if (!detalleCompraPaqueteSeleccionado.getEstado().equals("Cancelado")) {
+                Long diasRetrasados = detalleCompraPaqueteSeleccionado.getCompraPaquete().getPaquete().getFechacreacion().until(detalleCompraPaqueteSeleccionado.getCompraPaquete().getFecha(),
+                        ChronoUnit.DAYS);
+                List<PoliticaCancelacion> politicas = politicaCancelacionRepo.findClosestToDayMax(diasRetrasados);
+                PoliticaCancelacion politicaCancelacion = politicas.isEmpty() ? null : politicas.get(0);
+                if (politicaCancelacion == null) {
+                    mostrarMensaje(VALIDACION_DATOS, VALIDACION_DATOS,
+                            "No se encontro una politica de cancelacion para el paquete seleccionado",
+                            AlertType.WARNING);
+                    return;
+                }
+                Double costo = Double.valueOf(politicaCancelacion.getCostoRetraso() * (double) diasRetrasados) + politicaCancelacion.getCosto();
+                String motivo ="";
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("Input Dialog");
+                dialog.setHeaderText("Ingrese el motivo de la cancelación");
+                dialog.setContentText("Motivo:");
+
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()) {
+                    motivo = result.get();
+                }
+                CancelacionPaquete cancelacionPaquete = new CancelacionPaquete(detalleCompraPaqueteSeleccionado.getCompraPaquete(), LocalDate.now(), costo, motivo, politicaCancelacion);
+                cancelacionPaqueteRepo.save(cancelacionPaquete);
+                detalleCompraPaqueteSeleccionado.setEstado("Cancelado");
+                detalleCompraPaqueteRepo.save(detalleCompraPaqueteSeleccionado);
+                refrescarTablaComprados();
+                detalleCompraPaqueteSeleccionado = null;
+                mostrarMensaje(VALIDACION_DATOS, VALIDACION_DATOS,
+                        "Paquete cancelado con exito \n" + politicaCancelacion.getPolitica().getDescripcion() +"\n El costo de la cancelacion es de: "+costo,
+                        AlertType.INFORMATION);
+            } else {
+                mostrarMensaje(VALIDACION_DATOS, VALIDACION_DATOS,
+                        "No se puede cancelar un paquete que ya fue cancelado",
+                        AlertType.WARNING);
+            }
+        } else {
+            mostrarMensaje(VALIDACION_DATOS, VALIDACION_DATOS, "No ha seleccionado un paquete para cancelar",
+                    AlertType.WARNING);
+        }
     }
 
     @FXML
@@ -162,7 +220,7 @@ public class PaquetesClienteController implements Initializable {
             return;
         }
         CompraPaquete compraPaquete = new CompraPaquete(paqueteSeleccionado, clienteLogueado,
-                metodoPagoRepo.findByNombre(comboMetodo.getSelectionModel().getSelectedItem()), LocalDate.now(),
+                metodoPagoRepo.findByNombre(comboMetodo.getSelectionModel().getSelectedItem()), LocalDate.now().plusDays(30),
                 "El cliente con cedula" + clienteLogueado.getCedula() + " compro el paquete con id "
                         + paqueteSeleccionado.getId());
         compraPaqueteRepo.save(compraPaquete);
@@ -229,8 +287,9 @@ public class PaquetesClienteController implements Initializable {
         this.columnaTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
         this.columnaTipoComprado.setCellValueFactory(a -> new SimpleStringProperty(a.getValue().getCompraPaquete().getPaquete().getTipoPaquete().getNombre()));
         this.columnaMetodo.setCellValueFactory(a -> new SimpleStringProperty(a.getValue().getCompraPaquete().getMetodoPago().getNombre()));
-        this.columnaDescuentoComprado.setCellValueFactory(a -> new SimpleStringProperty(String.format("%.0f", a.getValue().getDescuento()*100)));
+        this.columnaDescuentoComprado.setCellValueFactory(a -> new SimpleStringProperty(String.format("%.0f", a.getValue().getDescuento()*100)+"%"));
         this.columnaCantidadPersonasComprado.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        this.columnaEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
         refrescarTablaComprados();
 
@@ -289,7 +348,7 @@ public class PaquetesClienteController implements Initializable {
         this.columnaTipo.setCellValueFactory(a -> new SimpleStringProperty(a.getValue().getTipoPaquete().getNombre()));
         this.columnaCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidadPersonas"));
         this.columnaDescuento.setCellValueFactory(a -> new SimpleStringProperty(
-                String.format("%.0f", a.getValue().getPoliticaDescuento().getPorcentajeDescuento()*100)));
+                String.format("%.0f", a.getValue().getPoliticaDescuento().getPorcentajeDescuento()*100)+"%"));
 
         refrescarTabla();
 

@@ -59,10 +59,11 @@
       </Label>
       <TableView fx:id="tablaHabitaciones" layoutX="452.0" layoutY="249.0" prefHeight="187.0" prefWidth="409.0">
          <columns>
-            <TableColumn fx:id="columnaNivel" prefWidth="104.0" text="Nivel" />
-            <TableColumn fx:id="columnaTipoHabitacion" text="Tipo" />
-            <TableColumn fx:id="columnaPrecioNoche" prefWidth="109.0" text="Precio por noche" />
-            <TableColumn fx:id="columnaDescripcionHabitacion" prefWidth="115.0" text="Descripcion" />
+            <TableColumn fx:id="columnaNivel" text="Nivel" />
+            <TableColumn fx:id="columnaTipoHabitacion" prefWidth="76.0" text="Tipo" />
+            <TableColumn fx:id="columnaPrecioNoche" prefWidth="53.0" text="Precio por noche" />
+            <TableColumn fx:id="columnaDescripcionHabitacion" prefWidth="111.0" text="Descripcion" />
+            <TableColumn fx:id="columnaEstadoHabitacion" prefWidth="88.0" text="Estado" />
          </columns>
       </TableView>
       <TextField fx:id="buscadorHabitacion" layoutX="550.0" layoutY="212.0" prefHeight="25.0" prefWidth="273.0" />
